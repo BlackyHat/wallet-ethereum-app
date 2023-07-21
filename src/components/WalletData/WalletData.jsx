@@ -7,10 +7,25 @@ const WalletData = ({ balance, walletAddress }) => {
     return address.slice(0, start) + '...' + address.slice(-end);
   }
 
+  const handleWalletClick = async () => {
+    try {
+      await navigator.clipboard.writeText(walletAddress);
+      alert('Wallet address copied!');
+    } catch (error) {
+      console.error('Error while triyng to copy:', error.message);
+    }
+  };
+
   return (
     <div className={scss.walletInfo}>
-      <span className={scss.balance}>{(+balance).toFixed(3)}</span>
-      <span className={scss.address}>{shortenAddress(walletAddress)}</span>
+      <span className={scss.balance}>{balance.toFixed(3)}</span>
+      <span
+        title={walletAddress}
+        className={scss.address}
+        onClick={handleWalletClick}
+      >
+        {shortenAddress(walletAddress)}
+      </span>
     </div>
   );
 };
@@ -18,6 +33,6 @@ const WalletData = ({ balance, walletAddress }) => {
 export default WalletData;
 
 WalletData.propTypes = {
-  balance: PropTypes.string.isRequired,
+  balance: PropTypes.number.isRequired,
   walletAddress: PropTypes.string.isRequired,
 };
