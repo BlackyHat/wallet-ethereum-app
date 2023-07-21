@@ -1,11 +1,50 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 import scss from './App.module.scss';
 // import Loader from '../Loader/Loader';
 import { ReactComponent as Logo } from '../../images/base-logo_.svg';
+import { ethers } from 'ethers';
+import WalletData from '../WalletData/WalletData';
 
 function App() {
-  // const [isLoading, setIsLoading] = useState(false);
+  const [walletAddress, setWalletAddress] = useState(null);
+  const [balance, setBalance] = useState(0);
+  const [errorMessage, setErrorMessage] = useState(null);
+  console.log('🚀 ~ App ~ walletAddress:', walletAddress);
+
   console.log('load APP');
+
+  const onConnect = async () => {
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      try {
+        const accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts',
+        });
+        setWalletAddress(accounts[0]);
+        await getBalance(accounts[0]);
+      } catch (error) {
+        setErrorMessage(error.message);
+        console.log('Error to get account', error);
+      }
+    } else {
+      setErrorMessage('To continue you need to install MetaMask App');
+    }
+  };
+
+  const getBalance = async (account) => {
+    try {
+      const balance = await window.ethereum.request({
+        method: 'eth_getBalance',
+        params: [account, 'latest'],
+      });
+
+      const normalizedBalance = ethers.formatEther(balance);
+      console.log('🚀 ~ getBalance ~ normalizedBalance:', normalizedBalance);
+
+      setBalance(normalizedBalance);
+    } catch (error) {
+      console.log('Error to get balance', error);
+    }
+  };
 
   const submit = () => {
     console.log('SUBMIT');
@@ -16,13 +55,17 @@ function App() {
         <div className={scss.container}>
           <div className={scss.headerWrapper}>
             <Logo className={scss.headerLogo} />
-            <button
-              type="button"
-              onClick={() => {}}
-              className={scss.connectButton}
-            >
-              Connect wallet
-            </button>
+            {walletAddress ? (
+              <WalletData balance={balance} walletAddress={walletAddress} />
+            ) : (
+              <button
+                type="button"
+                onClick={onConnect}
+                className={scss.connectButton}
+              >
+                Connect wallet
+              </button>
+            )}
           </div>
         </div>
       </header>
@@ -38,7 +81,7 @@ function App() {
             type="text"
             placeholder="Please input amount of coins"
           />
-          <button>pay</button>
+          <button className={scss.connectButton}>pay</button>
         </form>
       </main>
       <footer className={scss.footer}>
