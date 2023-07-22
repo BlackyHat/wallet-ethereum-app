@@ -10,7 +10,7 @@
 }
 
 .header {
-  background-color: rgb(194, 194, 194);
+  background-color: #c2c2c2;
   text-align: center;
   padding: 16px;
 }
@@ -44,7 +44,7 @@
 
 .connectButton {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
   justify-content: space-evenly;
   width: 180px;
@@ -59,6 +59,11 @@
   &:focus {
     background-color: #000000;
     box-shadow: 4px 2px 16px #ffffff7a;
+  }
+
+  &:disabled {
+    background-color: #959595;
+    color: #f0eeee;
   }
 }
 

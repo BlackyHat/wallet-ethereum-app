@@ -1,18 +1,43 @@
 import { useState, useEffect } from 'react';
-import scss from './App.module.scss';
-// import Loader from '../Loader/Loader';
-import { ReactComponent as Logo } from '../../images/base-logo_.svg';
-import WalletData from '../WalletData/WalletData';
-import { useWallet } from '../../hooks/useWallet';
-import PaymentForm from '../PaymentForm/PaymentForm';
-import { ToastProvider } from '../../providers/toast-provider';
 import { toast } from 'react-hot-toast';
+import { useWallet } from '../../hooks/useWallet';
+
+import ToastProvider from '../../providers/toast-provider';
+import WalletData from '../WalletData/WalletData';
+import TransactionsHistory from '../TransactionsHistory/TransactionsHistory';
+import PaymentForm from '../PaymentForm/PaymentForm';
+import Loader from '../Loader/Loader';
+import { ReactComponent as Logo } from '../../images/base-logo_.svg';
 import { PiBriefcaseMetalLight } from 'react-icons/pi';
+import scss from './App.module.scss';
+import { ethers } from 'ethers';
 
 function App() {
   const { address, balance, error, onConnect } = useWallet();
-  const [txs, setTxs] = useState([]);
-  console.log('🚀 ~ App ~ txs:', txs);
+  const [transactions, setTransactions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleConnect = async () => {
+    setIsLoading(true);
+    await onConnect();
+    setIsLoading(false);
+  };
+
+  // const date = new Date().toLocaleString();
+  // const newTransaction = {
+  //   date,
+  //   from: '0x6Cc9397c3B38739daCbfaA68EaD5F5D77Ba5F455',
+  //   to: '0x6Cc9397c3B38739daCbfaA68EaD5F5D77Ba5F455',
+  //   value: '1000000000000000',
+  //   hash: '0x6Cc9397c3B38739daCbfaA68EaD5F5D77Ba5F455',
+  // };
+
+  // useEffect(() => {
+  //   setTransactions((prevTransactions) => [
+  //     ...prevTransactions,
+  //     newTransaction,
+  //   ]);
+  // }, []);
 
   useEffect(() => {
     if (error) {
@@ -32,10 +57,12 @@ function App() {
               ) : (
                 <button
                   type="button"
-                  onClick={onConnect}
+                  disabled={isLoading}
+                  onClick={handleConnect}
                   className={scss.connectButton}
                 >
-                  Connect wallet <PiBriefcaseMetalLight />
+                  Connect wallet
+                  {isLoading ? <Loader /> : <PiBriefcaseMetalLight />}
                 </button>
               )}
             </div>
@@ -45,10 +72,12 @@ function App() {
           <PaymentForm
             balance={balance}
             onConnect={onConnect}
-            setTxs={setTxs}
+            setTransactions={setTransactions}
           />
           {error}
-          {/* {txs} */}
+          {transactions.length > 0 && (
+            <TransactionsHistory data={transactions} />
+          )}
         </main>
         <footer className={scss.footer}>
           <div className={scss.container}>

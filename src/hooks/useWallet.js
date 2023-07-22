@@ -15,7 +15,7 @@ export const useWallet = () => {
         });
         setAddress(accounts[0]);
         await getBalance(accounts[0]);
-        toast.success('Connected successfully.');
+        toast.success('Success.');
       } catch (error) {
         setError(error.message);
       }

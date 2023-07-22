@@ -1,21 +1,12 @@
 import scss from './WalletData.module.scss';
 import PropTypes from 'prop-types';
-import { toast } from 'react-hot-toast';
 import { FaEthereum } from 'react-icons/fa';
+import { shortenAddress } from '../../utils/formatAddress';
+import { addClipboard } from '../../utils/addClipboard';
 
 const WalletData = ({ balance, walletAddress }) => {
-  function shortenAddress(address, start = 5, end = 4) {
-    if (!address) return '';
-    return address.slice(0, start) + '...' + address.slice(-end);
-  }
-
   const handleWalletClick = async () => {
-    try {
-      await navigator.clipboard.writeText(walletAddress);
-      toast.success('Copied!');
-    } catch (error) {
-      toast.error('Something went wrong.');
-    }
+    addClipboard(walletAddress);
   };
 
   return (

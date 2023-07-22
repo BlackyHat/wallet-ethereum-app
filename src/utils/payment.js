@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 
 export const startPayment = async ({
   setErrorMessage,
-  setTxs,
+  setTransactions,
   ether,
   address,
 }) => {
@@ -20,12 +20,21 @@ export const startPayment = async ({
       to: address,
       value: ethers.parseEther(ether),
     });
+
     const receipt = await tx.wait();
     console.log('🚀 ~ startPayment ~ receipt:', receipt);
     console.log('🚀 ~ startPayment ~ tx:', tx);
 
-    setTxs([tx]);
-  } catch (err) {
-    setErrorMessage(err.message);
+    const date = new Date().toLocaleString();
+    const { from, to, value, hash } = tx;
+    const newTransaction = { date, from, to, value, hash };
+
+    setTransactions((prevTransactions) => [
+      ...prevTransactions,
+      newTransaction,
+    ]);
+  } catch (error) {
+    setErrorMessage('Payment cancelled.');
+    throw new Error();
   }
 };

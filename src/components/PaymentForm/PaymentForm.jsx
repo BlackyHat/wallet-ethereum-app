@@ -9,22 +9,26 @@ import { startPayment } from '../../utils/payment';
 import { paymentSchema } from '../../validation/validationYup';
 
 import scss from './PaymentForm.module.scss';
+import Loader from '../Loader/Loader';
 
-const PaymentForm = ({ balance, onConnect, setTxs }) => {
+const PaymentForm = ({ balance, onConnect, setTransactions }) => {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const submit = async (values) => {
+    setIsLoading(true);
     const { ether, address } = values;
     try {
       await startPayment({
         setErrorMessage,
-        setTxs,
+        setTransactions,
         ether: ether.toString(),
         address,
       });
       await onConnect();
-      toast.success('Success.');
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       toast.error('Something went wrong.');
     }
   };
@@ -88,10 +92,10 @@ const PaymentForm = ({ balance, onConnect, setTxs }) => {
             <button
               type="submit"
               className={scss.submitButton}
-              disabled={!dirty || !isValid}
+              disabled={!dirty || !isValid || isLoading}
             >
               Send payment
-              <VscSend />
+              {isLoading ? <Loader /> : <VscSend />}
             </button>
             {errorMessage && (
               <div className={scss.errorMessage}>{errorMessage}</div>
@@ -108,5 +112,5 @@ export default PaymentForm;
 PaymentForm.propTypes = {
   balance: PropTypes.number.isRequired,
   onConnect: PropTypes.func.isRequired,
-  setTxs: PropTypes.func.isRequired,
+  setTransactions: PropTypes.func.isRequired,
 };
