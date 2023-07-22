@@ -1,8 +1,10 @@
-import scss from './WalletData.module.scss';
 import PropTypes from 'prop-types';
-import { FaEthereum } from 'react-icons/fa';
-import { shortenAddress } from '../../utils/formatAddress';
+
+import { shortenAddress } from '../../utils/format';
 import { addClipboard } from '../../utils/addClipboard';
+
+import { FaEthereum } from 'react-icons/fa';
+import scss from './WalletData.module.scss';
 
 const WalletData = ({ balance, walletAddress }) => {
   const handleWalletClick = async () => {

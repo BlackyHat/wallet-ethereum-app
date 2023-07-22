@@ -4,12 +4,13 @@ import { clsx } from 'clsx';
 import { toast } from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-import { VscSend } from 'react-icons/vsc';
+import { formatAmount } from '../../utils/format';
 import { startPayment } from '../../utils/payment';
 import { paymentSchema } from '../../validation/validationYup';
 
-import scss from './PaymentForm.module.scss';
 import Loader from '../Loader/Loader';
+import { VscSend } from 'react-icons/vsc';
+import scss from './PaymentForm.module.scss';
 
 const PaymentForm = ({ balance, onConnect, setTransactions }) => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -41,7 +42,7 @@ const PaymentForm = ({ balance, onConnect, setTransactions }) => {
     >
       {({ errors, touched, dirty, isValid, setFieldValue }) => {
         return (
-          <Form className={scss.payingForm}>
+          <Form className={scss.paymentForm}>
             <label htmlFor="address" className={scss.label}>
               Recipient address
               <Field
@@ -68,12 +69,11 @@ const PaymentForm = ({ balance, onConnect, setTransactions }) => {
                 name="ether"
                 id="ether"
                 type="number"
-                min="0"
-                step="0.001"
-                max={balance}
+                min="0.000001"
+                step="0.000001"
+                max={100000 && balance}
                 onChange={(e) => {
-                  const value = e.target.value;
-                  const formattedValue = +Number.parseFloat(value).toFixed(3);
+                  const formattedValue = formatAmount(e.target.value);
                   setFieldValue('ether', formattedValue);
                 }}
                 placeholder="Amount in ETH"

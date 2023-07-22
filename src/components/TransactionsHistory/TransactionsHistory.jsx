@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { ethers } from 'ethers';
 
-import scss from './TransactionsHistory.module.scss';
-import { shortenAddress } from '../../utils/formatAddress';
+import { shortenAddress } from '../../utils/format';
 import { addClipboard } from '../../utils/addClipboard';
+import scss from './TransactionsHistory.module.scss';
 
 const TransactionsHistory = ({ data }) => {
   const handleCellClick = (e) => {
@@ -56,7 +56,7 @@ TransactionsHistory.propTypes = {
       from: PropTypes.string.isRequired,
       to: PropTypes.string.isRequired,
       hash: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
+      value: PropTypes.bigint.isRequired,
     })
   ),
 };

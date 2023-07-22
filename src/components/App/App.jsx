@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
-import { useWallet } from '../../hooks/useWallet';
 
+import { useWallet } from '../../hooks/useWallet';
 import ToastProvider from '../../providers/toast-provider';
+
 import WalletData from '../WalletData/WalletData';
 import TransactionsHistory from '../TransactionsHistory/TransactionsHistory';
 import PaymentForm from '../PaymentForm/PaymentForm';
@@ -10,40 +11,23 @@ import Loader from '../Loader/Loader';
 import { ReactComponent as Logo } from '../../images/base-logo_.svg';
 import { PiBriefcaseMetalLight } from 'react-icons/pi';
 import scss from './App.module.scss';
-import { ethers } from 'ethers';
 
 function App() {
   const { address, balance, error, onConnect } = useWallet();
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleConnect = async () => {
-    setIsLoading(true);
-    await onConnect();
-    setIsLoading(false);
-  };
-
-  // const date = new Date().toLocaleString();
-  // const newTransaction = {
-  //   date,
-  //   from: '0x6Cc9397c3B38739daCbfaA68EaD5F5D77Ba5F455',
-  //   to: '0x6Cc9397c3B38739daCbfaA68EaD5F5D77Ba5F455',
-  //   value: '1000000000000000',
-  //   hash: '0x6Cc9397c3B38739daCbfaA68EaD5F5D77Ba5F455',
-  // };
-
-  // useEffect(() => {
-  //   setTransactions((prevTransactions) => [
-  //     ...prevTransactions,
-  //     newTransaction,
-  //   ]);
-  // }, []);
-
   useEffect(() => {
     if (error) {
       toast.error(`Error: ${error}`);
     }
   }, [error]);
+
+  const handleConnect = async () => {
+    setIsLoading(true);
+    await onConnect();
+    setIsLoading(false);
+  };
 
   return (
     <>
@@ -87,6 +71,8 @@ function App() {
               <a
                 className={scss.link}
                 href="https://github.com/BlackyHat/wallet-ethereum-app"
+                target="_blank"
+                rel="noreferrer"
               >
                 My Wallet App
               </a>
