@@ -4,6 +4,7 @@ import { clsx } from 'clsx';
 import { toast } from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
+import { VscSend } from 'react-icons/vsc';
 import { startPayment } from '../../utils/payment';
 import { paymentSchema } from '../../validation/validationYup';
 
@@ -86,10 +87,11 @@ const PaymentForm = ({ balance, onConnect, setTxs }) => {
             </label>
             <button
               type="submit"
-              className={scss.connectButton}
+              className={scss.submitButton}
               disabled={!dirty || !isValid}
             >
-              Send ETH payment
+              Send payment
+              <VscSend />
             </button>
             {errorMessage && (
               <div className={scss.errorMessage}>{errorMessage}</div>

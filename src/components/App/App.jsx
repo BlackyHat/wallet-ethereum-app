@@ -7,6 +7,7 @@ import { useWallet } from '../../hooks/useWallet';
 import PaymentForm from '../PaymentForm/PaymentForm';
 import { ToastProvider } from '../../providers/toast-provider';
 import { toast } from 'react-hot-toast';
+import { PiBriefcaseMetalLight } from 'react-icons/pi';
 
 function App() {
   const { address, balance, error, onConnect } = useWallet();
@@ -34,7 +35,7 @@ function App() {
                   onClick={onConnect}
                   className={scss.connectButton}
                 >
-                  Connect wallet
+                  Connect wallet <PiBriefcaseMetalLight />
                 </button>
               )}
             </div>
@@ -54,7 +55,10 @@ function App() {
             <p>{'Copyright © ' + new Date().getFullYear() + '.'}</p>
             <span>
               {'Link to repository: '}
-              <a href="https://github.com/BlackyHat/wallet-ethereum-app">
+              <a
+                className={scss.link}
+                href="https://github.com/BlackyHat/wallet-ethereum-app"
+              >
                 My Wallet App
               </a>
             </span>

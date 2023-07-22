@@ -1,6 +1,7 @@
 import scss from './WalletData.module.scss';
 import PropTypes from 'prop-types';
 import { toast } from 'react-hot-toast';
+import { FaEthereum } from 'react-icons/fa';
 
 const WalletData = ({ balance, walletAddress }) => {
   function shortenAddress(address, start = 5, end = 4) {
@@ -11,7 +12,7 @@ const WalletData = ({ balance, walletAddress }) => {
   const handleWalletClick = async () => {
     try {
       await navigator.clipboard.writeText(walletAddress);
-      toast.success('Wallet address copied!');
+      toast.success('Copied!');
     } catch (error) {
       toast.error('Something went wrong.');
     }
@@ -19,7 +20,10 @@ const WalletData = ({ balance, walletAddress }) => {
 
   return (
     <div className={scss.walletInfo}>
-      <span className={scss.balance}>{balance.toFixed(3)}</span>
+      <FaEthereum className={scss.walletIcon} />
+      <span className={scss.balance} onClick={handleWalletClick}>
+        {balance.toFixed(3)}
+      </span>
       <span
         title={walletAddress}
         className={scss.address}

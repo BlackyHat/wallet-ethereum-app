@@ -15,10 +15,8 @@
   flex-direction: column;
   display: flex;
   width: 100%;
-
   margin-bottom: 28px;
-
-  color: black;
+  color: #222222;
   font-size: 16px;
   line-height: 1.14;
 }
@@ -32,30 +30,50 @@
   line-height: 18px;
 
   border: 1px solid grey;
-  color: black;
+  color: #222222;
   background-color: #fff;
   border-radius: 12px;
 
   &::placeholder {
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 18px;
-    font-family: 'Inter';
     color: grey;
   }
 
   &.isInvalid {
-    border: 1px solid #dc3545;
+    border: 1px solid #ac0a0a;
   }
   &.isValid {
-    border: 1px solid #3cbc81;
+    border: 1px solid #2aa55d;
   }
 }
 
 .errorMessage {
-  color: red;
+  color: #ac0a0a;
   font-size: 14px;
   position: absolute;
   bottom: -20px;
   left: 18px;
+}
+
+.submitButton {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-evenly;
+  max-width: 220px;
+  height: 48px;
+  background-color: #333333;
+  color: #dadada;
+  border: none;
+  transition: background-color 300ms linear;
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #000000;
+    box-shadow: 4px 2px 16px #c3c3c37a;
+  }
+  &:disabled {
+    background-color: #959595;
+    color: #f0eeee;
+  }
 }

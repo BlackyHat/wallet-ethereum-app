@@ -1,7 +1,21 @@
-// .walletInfo {
-// }
+.walletInfo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
 
 .balance {
-  margin-right: 16px;
   font-weight: 500;
+}
+
+.address,
+.balance {
+  cursor: pointer;
+}
+
+.walletIcon {
+  display: none;
+  @media screen and (min-width: 260px) {
+    display: block;
+  }
 }
