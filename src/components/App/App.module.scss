@@ -24,6 +24,27 @@
   width: 32px;
   height: 32px;
   fill: rgb(47, 47, 47);
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.headerLogo:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .headerLogo {
+    animation: logo-spin infinite 36s linear;
+  }
 }
 
 .connectButton {

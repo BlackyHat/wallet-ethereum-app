@@ -13,7 +13,6 @@ export const startPayment = async ({
       method: 'eth_requestAccounts',
     });
 
-    ethers.getAddress(address);
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
 
