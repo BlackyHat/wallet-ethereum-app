@@ -6,28 +6,28 @@ This is a simple web application that allows users to connect their wallet, chec
   <tr>
     <td align="center" valign="middle" width="25%">
       <a href="https://react.dev/">
-        <img height="60" alt="React" src="assets/react_logo.png"/>
+        <img height="80" alt="React" src="assets/react_logo.png"/>
       </a>
       <br />
       React
     </td>
     <td align="center" valign="middle" width="25%">
       <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/">
-        <img height="60" alt="JavaScript" src="assets/js_logo.png"/>
+        <img height="80" alt="JavaScript" src="assets/js_logo.png"/>
       </a>
       <br />
       JavaScript
     </td>
     <td align="center" valign="middle" width="25%">
       <a href="https://vitejs.dev/">
-        <img height="60" alt="Vite" src="assets/vite_logo.png"/>
+        <img height="80" alt="Vite" src="assets/vite_logo.png"/>
       </a>
       <br />
       Vite
     </td>
     <td align="center" valign="middle" width="25%">
       <a href="https://ethereum.org/uk/">
-      <img height="60" alt="Ethereum" src="assets/ethereum_logo.pngpng"/>
+      <img height="80" alt="Ethereum" src="assets/ethereum_logo.png"/>
       </a>
       <br />
       Ethereum
