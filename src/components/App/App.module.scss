@@ -51,26 +51,6 @@
   flex-direction: column;
 }
 
-.payingForm {
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-  max-width: 480px;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin: 32px auto;
-  border: 1px solid gray;
-  border-radius: 12px;
-}
-
-.input {
-  width: 100%;
-  padding: 4px;
-  border-radius: 8px;
-  font-size: 18px;
-}
-
 .main {
   flex: 1 1 auto;
   padding: 16px;

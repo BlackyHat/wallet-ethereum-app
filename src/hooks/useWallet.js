@@ -16,7 +16,6 @@ export const useWallet = () => {
         await getBalance(accounts[0]);
       } catch (error) {
         setError(error.message);
-        console.log('Error to get account', error);
       }
       window.ethereum.on('accountChanged', onConnect);
       window.ethereum.on('chainChanged', onConnect);
@@ -35,7 +34,7 @@ export const useWallet = () => {
       const normalizedBalance = +ethers.formatEther(balance);
       setBalance(normalizedBalance);
     } catch (error) {
-      console.log('Error to get balance', error);
+      setError(error.message);
     }
   };
 

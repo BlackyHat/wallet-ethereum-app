@@ -4,25 +4,12 @@ import scss from './App.module.scss';
 import { ReactComponent as Logo } from '../../images/base-logo_.svg';
 import WalletData from '../WalletData/WalletData';
 import { useWallet } from '../../hooks/useWallet';
-import { startPayment } from '../../utils/payment';
+import PaymentForm from '../PaymentForm/PaymentForm';
 
 function App() {
   const { address, balance, error, onConnect } = useWallet();
   const [txs, setTxs] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  const submit = async (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-
-    await startPayment({
-      setErrorMessage,
-      setTxs,
-      ether: data.get('ether'),
-      address: data.get('address'),
-    });
-    onConnect();
-  };
+  console.log('🚀 ~ App ~ txs:', txs);
 
   return (
     <div className={scss.wrapper}>
@@ -45,26 +32,9 @@ function App() {
         </div>
       </header>
       <main className={scss.main}>
-        <form className={scss.payingForm} onSubmit={submit}>
-          <input
-            className={scss.input}
-            type="text"
-            name="address"
-            placeholder="Recipient Address"
-          />
-          <input
-            className={scss.input}
-            name="ether"
-            type="number"
-            min="0"
-            step="0.001"
-            max={balance}
-            placeholder="Amount in ETH"
-          />
-          <button className={scss.connectButton}>Send ETH payment</button>
-        </form>
-        {errorMessage || error}
-        {txs}
+        <PaymentForm balance={balance} onConnect={onConnect} setTxs={setTxs} />
+        {error}
+        {/* {txs} */}
       </main>
       <footer className={scss.footer}>
         <div className={scss.container}>
