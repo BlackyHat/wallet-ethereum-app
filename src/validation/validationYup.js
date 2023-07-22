@@ -7,10 +7,6 @@ export const paymentSchema = Yup.object().shape({
   ether: Yup.number()
     .min(0.000001, 'Minimum amount is 0.000001')
     .max(100000, 'Maximum amount is 100000')
-    .test('is-multiple-of-10', 'Amount must be a multiple of 10', (value) => {
-      if (!value) return true;
-      return value % 10 === 0;
-    })
     .required('Amount is required'),
   address: Yup.string()
     .matches(ethereumAddressRegex, 'Invalid Ethereum wallet address')

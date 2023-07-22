@@ -3,5 +3,4 @@ export const shortenAddress = (address, start = 5, end = 4) => {
   return address.slice(0, start) + '...' + address.slice(-end);
 };
 
-export const formatAmount = (value) =>
-  Math.floor(+Number.parseFloat(value).toFixed(6));
+export const formatAmount = (value) => +Number.parseFloat(value).toFixed(6);

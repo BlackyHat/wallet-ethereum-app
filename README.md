@@ -59,6 +59,9 @@ Copy the repository to yourself
 git clone https://github.com/BlackyHat/true-test.git
 ```
 
+Also you need to install MetaMask as extension of your desktop browser.
+For mobile devices you can install MetaMask app and latest version Google Chrome for correct working application.
+
 ##### Demo 🖥️ 🚀 📅 🏦
 
 ### [GO TO LIVE DEMO PAGE HERE ](https://my-wallet-app-99yy.onrender.com/) 👀 🌀 📙

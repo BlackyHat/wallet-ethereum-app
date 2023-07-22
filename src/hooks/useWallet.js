@@ -20,8 +20,6 @@ export const useWallet = () => {
       } catch (error) {
         setError(error.message);
       }
-      window.ethereum.on('accountChanged', onConnect);
-      window.ethereum.on('chainChanged', onConnect);
     } else {
       setError('No crypto wallet found. Please install it.');
     }

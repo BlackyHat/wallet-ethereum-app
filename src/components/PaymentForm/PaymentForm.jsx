@@ -71,9 +71,10 @@ const PaymentForm = ({ balance, onConnect, setTransactions }) => {
                 type="number"
                 min="0.000001"
                 step="0.000001"
-                max={100000 && balance}
+                max={balance}
                 onChange={(e) => {
                   const formattedValue = formatAmount(e.target.value);
+                  console.log(formattedValue);
                   setFieldValue('ether', formattedValue);
                 }}
                 placeholder="Amount in ETH"
