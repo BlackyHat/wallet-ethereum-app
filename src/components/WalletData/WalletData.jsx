@@ -1,5 +1,6 @@
 import scss from './WalletData.module.scss';
 import PropTypes from 'prop-types';
+import { toast } from 'react-hot-toast';
 
 const WalletData = ({ balance, walletAddress }) => {
   function shortenAddress(address, start = 5, end = 4) {
@@ -10,9 +11,9 @@ const WalletData = ({ balance, walletAddress }) => {
   const handleWalletClick = async () => {
     try {
       await navigator.clipboard.writeText(walletAddress);
-      alert('Wallet address copied!');
+      toast.success('Wallet address copied!');
     } catch (error) {
-      console.error('Error while triyng to copy:', error.message);
+      toast.error('Something went wrong.');
     }
   };
 

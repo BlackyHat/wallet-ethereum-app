@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { clsx } from 'clsx';
+import { toast } from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 import { startPayment } from '../../utils/payment';
@@ -13,14 +14,18 @@ const PaymentForm = ({ balance, onConnect, setTxs }) => {
 
   const submit = async (values) => {
     const { ether, address } = values;
-
-    await startPayment({
-      setErrorMessage,
-      setTxs,
-      ether: ether.toString(),
-      address,
-    });
-    onConnect();
+    try {
+      await startPayment({
+        setErrorMessage,
+        setTxs,
+        ether: ether.toString(),
+        address,
+      });
+      await onConnect();
+      toast.success('Success.');
+    } catch (error) {
+      toast.error('Something went wrong.');
+    }
   };
 
   return (
@@ -93,25 +98,6 @@ const PaymentForm = ({ balance, onConnect, setTxs }) => {
         );
       }}
     </Formik>
-    // <form className={scss.payingForm} onSubmit={submit}>
-    //   <input
-    //     className={scss.input}
-    //     type="text"
-    //     name="address"
-    //     placeholder="Recipient Address"
-    //   />
-    //   <input
-    //     className={scss.input}
-    //     name="ether"
-    // type="number"
-    // min="0"
-    // step="0.001"
-    // max={balance}
-    //     placeholder="Amount in ETH"
-    //   />
-    //   <button className={scss.connectButton}>Send ETH payment</button>
-    //   {errorMessage && <p>{errorMessage}</p>}
-    // </form>
   );
 };
 

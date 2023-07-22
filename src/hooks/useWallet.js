@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ethers } from 'ethers';
+import { toast } from 'react-hot-toast';
 
 export const useWallet = () => {
   const [address, setAddress] = useState(null);
@@ -14,6 +15,7 @@ export const useWallet = () => {
         });
         setAddress(accounts[0]);
         await getBalance(accounts[0]);
+        toast.success('Connected successfully.');
       } catch (error) {
         setError(error.message);
       }
