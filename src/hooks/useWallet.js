@@ -15,7 +15,8 @@ export const useWallet = () => {
         });
         setAddress(accounts[0]);
         await getBalance(accounts[0]);
-
+        window.ethereum.on('accountChanged', onConnect);
+        window.ethereum.on('chainChanged', onConnect);
         toast.success('Success.');
       } catch (error) {
         setError(error.message);
