@@ -1,11 +1,12 @@
 import { ethers } from 'ethers';
+import { IPaymentProps } from '../helpers/interfaces';
 
 export const startPayment = async ({
   setErrorMessage,
   setTransactions,
   ether,
   address,
-}) => {
+}: IPaymentProps) => {
   try {
     if (!window.ethereum)
       setErrorMessage('No crypto wallet found. Please install it.');
@@ -25,10 +26,7 @@ export const startPayment = async ({
     const { from, to, value, hash } = tx;
     const newTransaction = { date, from, to, value, hash };
 
-    setTransactions((prevTransactions) => [
-      ...prevTransactions,
-      newTransaction,
-    ]);
+    setTransactions((prevState) => [...prevState, newTransaction]);
   } catch (error) {
     setErrorMessage('Payment cancelled.');
     throw new Error();

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { clsx } from 'clsx';
 import { toast } from 'react-hot-toast';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -11,12 +10,17 @@ import { paymentSchema } from '../../validation/validationYup';
 import Loader from '../Loader/Loader';
 import { VscSend } from 'react-icons/vsc';
 import scss from './PaymentForm.module.scss';
+import { PaymentFormProps, ValuesProps } from '../../helpers/interfaces';
 
-const PaymentForm = ({ balance, onConnect, setTransactions }) => {
-  const [errorMessage, setErrorMessage] = useState(null);
+const PaymentForm: React.FC<PaymentFormProps> = ({
+  balance,
+  onConnect,
+  setTransactions,
+}) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const submit = async (values) => {
+  const submit = async (values: ValuesProps) => {
     setIsLoading(true);
     const { ether, address } = values;
     try {
@@ -26,7 +30,7 @@ const PaymentForm = ({ balance, onConnect, setTransactions }) => {
         ether: ether.toString(),
         address,
       });
-      await onConnect();
+      onConnect();
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
@@ -72,7 +76,7 @@ const PaymentForm = ({ balance, onConnect, setTransactions }) => {
                 min="0.000001"
                 step="0.000001"
                 max={balance}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const formattedValue = formatAmount(e.target.value);
                   console.log(formattedValue);
                   setFieldValue('ether', formattedValue);
@@ -109,9 +113,3 @@ const PaymentForm = ({ balance, onConnect, setTransactions }) => {
 };
 
 export default PaymentForm;
-
-PaymentForm.propTypes = {
-  balance: PropTypes.number.isRequired,
-  onConnect: PropTypes.func.isRequired,
-  setTransactions: PropTypes.func.isRequired,
-};

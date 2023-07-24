@@ -11,10 +11,11 @@ import Loader from '../Loader/Loader';
 import { ReactComponent as Logo } from '../../images/base-logo_.svg';
 import { PiBriefcaseMetalLight } from 'react-icons/pi';
 import scss from './App.module.scss';
+import { ITransaction } from '../../helpers/interfaces';
 
 function App() {
   const { address, balance, error, onConnect } = useWallet();
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

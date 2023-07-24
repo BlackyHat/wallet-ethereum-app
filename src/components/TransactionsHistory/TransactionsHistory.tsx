@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
 import { ethers } from 'ethers';
 
 import { shortenAddress } from '../../utils/format';
 import { addClipboard } from '../../utils/addClipboard';
+import { TransactionsHistoryProps } from '../../helpers/interfaces';
 import scss from './TransactionsHistory.module.scss';
 
-const TransactionsHistory = ({ data }) => {
-  const handleCellClick = (e) => {
-    const { title } = e.target;
+const TransactionsHistory: React.FC<TransactionsHistoryProps> = ({ data }) => {
+  const handleCellClick = (e: React.MouseEvent<HTMLTableCellElement>) => {
+    const { title } = e.target as HTMLTableCellElement;
     addClipboard(title);
   };
 
@@ -25,6 +25,7 @@ const TransactionsHistory = ({ data }) => {
         {data &&
           data.map(({ date, to, value, hash }) => {
             const formattedValue = ethers.formatEther(value);
+            const recepient = to ? to : 'recepient';
             return (
               <tr key={hash}>
                 <td title={date} onClick={handleCellClick}>
@@ -33,8 +34,8 @@ const TransactionsHistory = ({ data }) => {
                 <td title={hash} onClick={handleCellClick}>
                   {shortenAddress(hash)}
                 </td>
-                <td title={to} onClick={handleCellClick}>
-                  {shortenAddress(to)}
+                <td title={recepient} onClick={handleCellClick}>
+                  {shortenAddress(recepient)}
                 </td>
                 <td title={formattedValue} onClick={handleCellClick}>
                   {formattedValue + ' ETH'}
@@ -48,15 +49,3 @@ const TransactionsHistory = ({ data }) => {
 };
 
 export default TransactionsHistory;
-
-TransactionsHistory.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      date: PropTypes.string.isRequired,
-      from: PropTypes.string.isRequired,
-      to: PropTypes.string.isRequired,
-      hash: PropTypes.string.isRequired,
-      value: PropTypes.bigint.isRequired,
-    })
-  ),
-};

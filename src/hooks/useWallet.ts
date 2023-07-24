@@ -3,9 +3,9 @@ import { ethers } from 'ethers';
 import { toast } from 'react-hot-toast';
 
 export const useWallet = () => {
-  const [address, setAddress] = useState(null);
-  const [balance, setBalance] = useState(0);
-  const [error, setError] = useState(null);
+  const [address, setAddress] = useState<string | null>(null);
+  const [balance, setBalance] = useState<number>(0);
+  const [error, setError] = useState<string | null>(null);
 
   const onConnect = async () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
@@ -18,7 +18,7 @@ export const useWallet = () => {
         window.ethereum.on('accountChanged', onConnect);
         window.ethereum.on('chainChanged', onConnect);
         toast.success('Success.');
-      } catch (error) {
+      } catch (error: any) {
         setError(error.message);
       }
     } else {
@@ -26,7 +26,7 @@ export const useWallet = () => {
     }
   };
 
-  const getBalance = async (account) => {
+  const getBalance = async (account: string) => {
     try {
       const balance = await window.ethereum.request({
         method: 'eth_getBalance',
@@ -36,7 +36,7 @@ export const useWallet = () => {
       const normalizedBalance = +ethers.formatEther(balance);
       setBalance(normalizedBalance);
     } catch (error) {
-      setError(error.message);
+      setError((error as Error).message);
     }
   };
 

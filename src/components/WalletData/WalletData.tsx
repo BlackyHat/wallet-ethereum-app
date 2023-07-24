@@ -1,12 +1,11 @@
-import PropTypes from 'prop-types';
-
 import { shortenAddress } from '../../utils/format';
 import { addClipboard } from '../../utils/addClipboard';
 
 import { FaEthereum } from 'react-icons/fa';
+import { IWalletProps } from '../../helpers/interfaces';
 import scss from './WalletData.module.scss';
 
-const WalletData = ({ balance, walletAddress }) => {
+const WalletData: React.FC<IWalletProps> = ({ balance, walletAddress }) => {
   const handleWalletClick = async () => {
     addClipboard(walletAddress);
   };
@@ -29,8 +28,3 @@ const WalletData = ({ balance, walletAddress }) => {
 };
 
 export default WalletData;
-
-WalletData.propTypes = {
-  balance: PropTypes.number.isRequired,
-  walletAddress: PropTypes.string.isRequired,
-};
