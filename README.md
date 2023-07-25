@@ -78,6 +78,7 @@ For mobile devices you can install MetaMask app and latest version Google Chrome
 ## The web application using the following technologies and libraries: ⚙️ 🚧 🖥️
 
 - JavaScript,
+- TypeScript,
 - React.js,
 - Ethers.js,
 - Formik,
