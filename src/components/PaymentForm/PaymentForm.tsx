@@ -9,8 +9,8 @@ import { paymentSchema } from '../../validation/validationYup';
 
 import Loader from '../Loader/Loader';
 import { VscSend } from 'react-icons/vsc';
-import scss from './PaymentForm.module.scss';
 import { PaymentFormProps, ValuesProps } from '../../helpers/interfaces';
+import scss from './PaymentForm.module.scss';
 
 const PaymentForm: React.FC<PaymentFormProps> = ({
   balance,

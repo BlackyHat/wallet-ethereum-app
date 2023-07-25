@@ -17,7 +17,7 @@ const TransactionsHistory: React.FC<TransactionsHistoryProps> = ({ data }) => {
         <tr>
           <th>Date</th>
           <th>HASH</th>
-          <th>RECEPIENT</th>
+          <th>RECIPIENT</th>
           <th>ETH</th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@ const TransactionsHistory: React.FC<TransactionsHistoryProps> = ({ data }) => {
         {data &&
           data.map(({ date, to, value, hash }) => {
             const formattedValue = ethers.formatEther(value);
-            const recepient = to ? to : 'recepient';
+            const recipient = to ? to : 'recipient';
             return (
               <tr key={hash}>
                 <td title={date} onClick={handleCellClick}>
@@ -34,8 +34,8 @@ const TransactionsHistory: React.FC<TransactionsHistoryProps> = ({ data }) => {
                 <td title={hash} onClick={handleCellClick}>
                   {shortenAddress(hash)}
                 </td>
-                <td title={recepient} onClick={handleCellClick}>
-                  {shortenAddress(recepient)}
+                <td title={recipient} onClick={handleCellClick}>
+                  {shortenAddress(recipient)}
                 </td>
                 <td title={formattedValue} onClick={handleCellClick}>
                   {formattedValue + ' ETH'}
